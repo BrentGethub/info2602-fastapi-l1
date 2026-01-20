@@ -10,5 +10,17 @@ with open('./data.json') as f:
 
 
 @app.get('/')
-def hello_world():
+async def hello_world():
     return 'Hello, World!'
+
+
+@app.get('/students')
+async def get_students(pref: str = None):
+    if pref:
+        filtered_students = []
+        for student in data:
+            if student['pref'] == pref:  
+                filtered_students.append(student) 
+        return filtered_students
+    return data
+
